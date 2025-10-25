@@ -34,6 +34,114 @@ Different store formats (5.5K urban stores, EDO hybrid stores, and Travel Center
 - **Power Query** - Data transformation & cleaning
 - **Excel** - Initial data exploration & analysis
 
+## 🗃️ Data Model & Schema
+
+### **Source Data Structure**
+
+The analysis uses the following key tables and relationships:
+
+![Data Model](data_models.png)
+
+```mermaid
+erDiagram
+    RATE_TABLE {
+        string ADV_GrC_Pizza_Sales_Per_Day
+        string Basin_in_Cup_Sales_Per_Day
+        string Chicken_Sales_Per_Day
+        string Day_Store_Open
+        string DoorDash_Sales_Per_Day
+        string Frozen_Yogurt_Sales_Per_Day
+        string Fuel_Gallons_Per_Day
+        string Hot_Food_Sales_Per_Day
+        string Inside_Guest_Count_Per_Day
+    }
+
+    PERFORMANCE_DATA {
+        string ADV_GrC_Pizza_Sales
+        string Basin_in_Cup_Sales
+        string Chicken_Sales
+        string Day_Store_Open
+        string DoorDash_Sales
+        string Frozen_Yogurt_Sales
+        string Fuel_Gallons_Per_Day
+        string Hot_Food_Sales
+    }
+
+    CLEAN_TABLE {
+        string ADV_GrC_Pizza_Sales
+        string Basin_in_Cup_Sales
+        string Chicken_Sales
+        string Day_Store_Open
+        string DoorDash_Sales
+        string Frozen_Yogurt_Sales
+        string Fuel_Gallons_Per_Day
+        string Hot_Food_Sales
+        string Inside_Guest_Count_Per_Day
+    }
+
+    PIVOT1 {
+        string ADV_GrC_Pizza_Sales
+        string Basin_in_Cup_Sales
+        string Chicken_Sales
+        string Day_Store_Open
+        string DoorDash_Sales
+        string Frozen_Yogurt_Sales
+        string Fuel_Gallons_Per_Day
+        string Hot_Food_Sales
+        string Inside_Guest_Count_Per_Day
+    }
+
+    OFFERS {
+        string Column_Labels
+        string Column1
+        string Column2
+        string Column3
+        string Column4
+        string Column5
+        string Column6
+        string Sum_of_Percentage
+    }
+
+    MELTED {
+        string Attribute
+        string State
+        string Store_Type
+        string Value
+    }
+
+    TABLE1_UNPIVOT {
+        string Offers
+        string Percentage
+        string Store_Type
+    }
+
+    MELTED_FULL {
+        string Attribute
+        string State
+        string Store_Type
+        string Value
+    }
+
+    OFFER_CONNECTOR {
+        string Attribute
+    }
+
+    RECOMMENDATIONS {
+        string Recommendation
+        string Store_Type
+    }
+
+    STORE_CONNECTOR {
+        string Store_Type
+    }
+
+    MELTED ||--o{ TABLE1_UNPIVOT : "unpivoted_from"
+    TABLE1_UNPIVOT ||--o{ OFFERS : "linked_to"
+    OFFERS ||--o{ OFFER_CONNECTOR : "connects"
+    MELTED_FULL ||--o{ STORE_CONNECTOR : "linked_to"
+    STORE_CONNECTOR ||--o{ RECOMMENDATIONS : "provides"
+```
+
 ## 📈 Key Insights & Recommendations
 
 ### Store-Type Specific Strategies
