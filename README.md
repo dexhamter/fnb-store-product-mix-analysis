@@ -40,8 +40,6 @@ Different store formats (5.5K urban stores, EDO hybrid stores, and Travel Center
 
 The analysis uses the following key tables and relationships:
 
-![Data Model](data_models.png)
-
 ```mermaid
 erDiagram
     RATE_TABLE {
